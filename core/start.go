@@ -3,8 +3,6 @@ package core
 import (
 	"bufio"
 	"context"
-	"github.com/google/gopacket/pcap"
-	ratelimit "golang.org/x/time/rate"
 	"io"
 	"ksubdomain/gologger"
 	"math/rand"
@@ -12,14 +10,17 @@ import (
 	"strings"
 	"sync/atomic"
 	"time"
+
+	ratelimit "golang.org/x/time/rate"
 )
 
 func PrintStatus() {
-	gologger.Printf("\rSuccess:%d Sent:%d Recved:%d Faild:%d", SuccessIndex, SentIndex, RecvIndex, FaildIndex)
+	// gologger.Printf("\rSuccess:%d Sent:%d Recved:%d Faild:%d", SuccessIndex, SentIndex, RecvIndex, FaildIndex)
 }
+
 func Start(options *Options) {
-	version := pcap.Version()
-	gologger.Infof(version + "\n")
+	// version := pcap.Version()
+	// gologger.Infof(version + "\n")
 	var ether EthTable
 	if options.ListNetwork {
 		GetIpv4Devices()
@@ -55,7 +56,7 @@ func Start(options *Options) {
 	// handle dict
 	if len(options.Domain) > 0 {
 		if options.FileName == "" {
-			gologger.Infof("加载内置字典\n")
+			// gologger.Infof("加载内置字典\n")
 			f = strings.NewReader(GetSubdomainData())
 		} else {
 			f2, err := os.Open(options.FileName)
@@ -78,12 +79,12 @@ func Start(options *Options) {
 
 	if options.SkipWildCard {
 		tmp_domains := []string{}
-		gologger.Infof("检测泛解析\n")
+		// gologger.Infof("检测泛解析\n")
 		for _, domain := range options.Domain {
 			if !IsWildCard(domain) {
 				tmp_domains = append(tmp_domains, domain)
 			} else {
-				gologger.Warningf("域名:%s 存在泛解析记录,已跳过\n", domain)
+				// gologger.Warningf("域名:%s 存在泛解析记录,已跳过\n", domain)
 			}
 		}
 		options.Domain = tmp_domains
@@ -92,7 +93,7 @@ func Start(options *Options) {
 	if options.API {
 		s := &Source{}
 		s.Init()
-		gologger.Infof("API模块:%s\n", s.Names)
+		// gologger.Infof("API模块:%s\n", s.Names)
 		for _, domain := range options.Domain {
 			s.Feed(domain)
 		}
@@ -123,14 +124,14 @@ func Start(options *Options) {
 			}
 		}
 		f = strings.NewReader(strings.Join(domains, "\n"))
-		gologger.Infof("API模式获取完毕,验证中..\n")
+		// gologger.Infof("API模式获取完毕,验证中..\n")
 	}
 
-	if len(options.Domain) > 0 {
-		gologger.Infof("检测域名:%s\n", options.Domain)
-	}
-	gologger.Infof("设置rate:%dpps\n", options.Rate)
-	gologger.Infof("DNS:%s\n", options.Resolvers)
+	// if len(options.Domain) > 0 {
+	// 	// gologger.Infof("检测域名:%s\n", options.Domain)
+	// }
+	// gologger.Infof("设置rate:%dpps\n", options.Rate)
+	// gologger.Infof("DNS:%s\n", options.Resolvers)
 
 	r := bufio.NewReader(f)
 

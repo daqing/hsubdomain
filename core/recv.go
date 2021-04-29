@@ -2,15 +2,16 @@ package core
 
 import (
 	"bufio"
-	"github.com/google/gopacket"
-	"github.com/google/gopacket/layers"
-	"github.com/google/gopacket/pcap"
 	"ksubdomain/gologger"
 	"os"
 	"strconv"
 	"strings"
 	"sync/atomic"
 	"time"
+
+	"github.com/google/gopacket"
+	"github.com/google/gopacket/layers"
+	"github.com/google/gopacket/pcap"
 )
 
 func Recv(device string, options *Options, flagID uint16, retryChan chan RetryStruct) {
@@ -126,16 +127,16 @@ func Recv(device string, options *Options, flagID uint16, retryChan chan RetrySt
 						if isttl {
 							msg += " ttl:" + strconv.Itoa(int(v.TTL))
 						}
-						msg += " => "
+						msg += ","
 					}
 				}
 				msg = strings.Trim(msg, " => ")
 				ff := windowWith - len(msg) - 1
 				if !options.Silent {
 					if windowWith > 0 && ff > 0 {
-						gologger.Silentf("\r%s% *s\n", msg, ff, "")
+						gologger.Silentf("%s% *s\n", msg, ff, "")
 					} else {
-						gologger.Silentf("\r%s\n", msg)
+						gologger.Silentf("%s\n", msg)
 					}
 				} else {
 					gologger.Silentf("%s\n", msg)

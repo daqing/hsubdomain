@@ -53,7 +53,7 @@ func ParseOptions() *Options {
 	flag.BoolVar(&options.API, "api", false, "使用网络接口")
 	flag.BoolVar(&options.FULL, "full", false, "完整模式，使用网络接口和内置字典")
 	flag.IntVar(&options.DomainLevel, "l", 1, "爆破域名层级,默认爆破一级域名")
-	flag.BoolVar(&options.SkipWildCard, "skip-wild", false, "跳过泛解析的域名")
+	flag.BoolVar(&options.SkipWildCard, "skip-wild", true, "跳过泛解析的域名")
 	flag.BoolVar(&options.FilterWildCard, "filter-wild", false, "自动分析并过滤泛解析，最终输出文件，需要与'-o'搭配")
 	flag.BoolVar(&options.Summary, "summary", false, "在扫描完毕后整理域名归属asn以及IP段")
 	flag.BoolVar(&options.CheckOrigin, "check-origin", false, "会从返回包检查DNS是否为设定的，防止其他包的干扰")
@@ -62,7 +62,7 @@ func ParseOptions() *Options {
 	if options.Silent {
 		gologger.MaxLevel = gologger.Silent
 	}
-	ShowBanner()
+	// ShowBanner()
 	// handle resolver
 	if *resolvers != "" {
 		rs, err := LinesInFile(*resolvers)

@@ -16,6 +16,7 @@ const banner = `
 `
 
 func ShowBanner() {
+	return
 	gologger.Printf(banner)
 	gologger.Infof("Current Version: %s\n", Version)
 }

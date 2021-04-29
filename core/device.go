@@ -3,12 +3,13 @@ package core
 import (
 	"context"
 	"fmt"
-	"github.com/google/gopacket"
-	"github.com/google/gopacket/layers"
-	"github.com/google/gopacket/pcap"
 	"ksubdomain/gologger"
 	"net"
 	"time"
+
+	"github.com/google/gopacket"
+	"github.com/google/gopacket/layers"
+	"github.com/google/gopacket/pcap"
 )
 
 func AutoGetDevices() EthTable {
@@ -59,7 +60,7 @@ func AutoGetDevices() EthTable {
 					return
 				default:
 					packet, err := packetSource.NextPacket()
-					gologger.Printf(".")
+					// gologger.Printf(".")
 					if err != nil {
 						continue
 					}
@@ -96,11 +97,11 @@ func AutoGetDevices() EthTable {
 		}
 	}
 END:
-	gologger.Printf("\n")
-	gologger.Infof("Use Device: %s\n", c.Device)
-	gologger.Infof("Use IP:%s\n", c.SrcIp.String())
-	gologger.Infof("Local Mac:%s\n", c.SrcMac.String())
-	gologger.Infof("GateWay Mac:%s\n", c.DstMac.String())
+	// gologger.Printf("\n")
+	// gologger.Infof("Use Device: %s\n", c.Device)
+	// gologger.Infof("Use IP:%s\n", c.SrcIp.String())
+	// gologger.Infof("Local Mac:%s\n", c.SrcMac.String())
+	// gologger.Infof("GateWay Mac:%s\n", c.DstMac.String())
 	return c
 }
 func GetIpv4Devices() (keys []string, data map[string]net.IP) {

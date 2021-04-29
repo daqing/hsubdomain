@@ -2,11 +2,12 @@ package gologger
 
 import (
 	"fmt"
-	"github.com/logrusorgru/aurora"
-	"github.com/mattn/go-colorable"
 	"os"
 	"strings"
 	"sync"
+
+	"github.com/logrusorgru/aurora"
+	"github.com/mattn/go-colorable"
 )
 
 // Level defines all the available levels we can log at
