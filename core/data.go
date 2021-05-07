@@ -3,8 +3,8 @@ package core
 import (
 	"bufio"
 	"github.com/rakyll/statik/fs"
-	"ksubdomain/gologger"
-	_ "ksubdomain/statik"
+	"hsubdomain/gologger"
+	_ "hsubdomain/statik"
 	"net"
 	"os"
 	"path/filepath"

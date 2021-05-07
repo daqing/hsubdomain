@@ -1,4 +1,4 @@
-module ksubdomain
+module hsubdomain
 
 go 1.14
 

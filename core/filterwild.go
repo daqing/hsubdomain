@@ -2,7 +2,7 @@ package core
 
 import (
 	"fmt"
-	"ksubdomain/gologger"
+	"hsubdomain/gologger"
 	"math"
 	"sort"
 	"strconv"

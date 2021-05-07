@@ -2,7 +2,7 @@ package core
 
 import (
 	"flag"
-	"ksubdomain/gologger"
+	"hsubdomain/gologger"
 	"os"
 	"strconv"
 )

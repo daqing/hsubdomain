@@ -2,7 +2,7 @@ package core
 
 import (
 	"github.com/logrusorgru/aurora"
-	"ksubdomain/gologger"
+	"hsubdomain/gologger"
 	"sync"
 )
 

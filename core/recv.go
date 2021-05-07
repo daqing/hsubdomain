@@ -2,7 +2,7 @@ package core
 
 import (
 	"bufio"
-	"ksubdomain/gologger"
+	"hsubdomain/gologger"
 	"os"
 	"strconv"
 	"strings"

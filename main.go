@@ -1,8 +1,8 @@
 package main
 
 import (
-	"ksubdomain/core"
-	"ksubdomain/gologger"
+	"hsubdomain/core"
+	"hsubdomain/gologger"
 	"net"
 	"os"
 	"time"

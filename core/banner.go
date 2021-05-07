@@ -1,7 +1,7 @@
 package core
 
 import (
-	"ksubdomain/gologger"
+	"hsubdomain/gologger"
 )
 
 const Version = "0.7"

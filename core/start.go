@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"context"
 	"io"
-	"ksubdomain/gologger"
+	"hsubdomain/gologger"
 	"math/rand"
 	"os"
 	"strings"
