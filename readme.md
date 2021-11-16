@@ -1,13 +1,13 @@
-ksubdomain是一款基于无状态子域名爆破工具，支持在Windows/Linux/Mac上使用，它会很快的进行DNS爆破，在Mac和Windows上理论最大发包速度在30w/s,linux上为160w/s的速度。
+hsubdomain是一款基于无状态子域名爆破工具，支持在Windows/Linux/Mac上使用，它会很快的进行DNS爆破，在Mac和Windows上理论最大发包速度在30w/s,linux上为160w/s的速度。
 ## 为什么这么快
-ksubdomain的发送和接收是分离且不依赖系统，即使高并发发包，也不会占用系统描述符让系统网络阻塞。
+hsubdomain的发送和接收是分离且不依赖系统，即使高并发发包，也不会占用系统描述符让系统网络阻塞。
 
-可以用`--test`来测试本地最大发包数,但实际发包的多少和网络情况息息相关，ksubdomain将网络参数简化为了`-b`参数，输入你的网络下载速度如`-b 5m`，ksubdomain将会自动限制发包速度。
+可以用`--test`来测试本地最大发包数,但实际发包的多少和网络情况息息相关，hsubdomain将网络参数简化为了`-b`参数，输入你的网络下载速度如`-b 5m`，hsubdomain将会自动限制发包速度。
 ## 可靠性
-类似masscan,这么大的发包速度意味着丢包也会非常严重，ksubdomain有丢包重发机制(这样意味着速度会减小，但比普通的DNS爆破快很多)，会保证每个包都收到DNS服务器的回复，漏报的可能性很小。
+类似masscan,这么大的发包速度意味着丢包也会非常严重，hsubdomain有丢包重发机制(这样意味着速度会减小，但比普通的DNS爆破快很多)，会保证每个包都收到DNS服务器的回复，漏报的可能性很小。
 
 ## 使用
-从[releases](https://github.com/knownsec/ksubdomain/releases "releases")下载二进制文件。 
+从[releases](https://github.com/knownsec/hsubdomain/releases "releases")下载二进制文件。 
 
 在linux下，还需要安装`libpcap-dev`,在Windows下需要安装`WinPcap`，mac下可以直接使用。
 ```
@@ -67,34 +67,34 @@ Usage of ./cmd:
 ### 常用命令
 ```
 使用内置字典爆破
-ksubdomain -d seebug.org
+hsubdomain -d seebug.org
 
 使用字典爆破域名
-ksubdomain -d seebug.org -f subdomains.dict
+hsubdomain -d seebug.org -f subdomains.dict
 
 字典里都是域名，可使用验证模式
-ksubdomain -f dns.txt -verify
+hsubdomain -f dns.txt -verify
 
 爆破三级域名
-ksubdomain -d seebug.org -l 2
+hsubdomain -d seebug.org -l 2
 
 通过管道爆破
-echo "seebug.org"|ksubdomain
+echo "seebug.org"|hsubdomain
 
 通过管道验证域名
-echo "paper.seebug.org"|ksubdomain -verify
+echo "paper.seebug.org"|hsubdomain -verify
 
 仅使用网络API接口获取域名
-ksubdomain -d seebug.org -api
+hsubdomain -d seebug.org -api
 
 完整模式,先使用网络API，在此基础使用内置字典进行爆破
-ksubdomain -d seebug.org -full
+hsubdomain -d seebug.org -full
 ```
 [![asciicast](https://asciinema.org/a/356138.svg)](https://asciinema.org/a/356138)
 ## Summary整理
-ksubdomain加入了整理的功能，当参数后面加上`-summary`。
+hsubdomain加入了整理的功能，当参数后面加上`-summary`。
 
-例如`ksubdomain -d seebug.org -summary`之后，会根据域名归属的asn以及IP段自动整理输出，方便确认资产的范围。
+例如`hsubdomain -d seebug.org -summary`之后，会根据域名归属的asn以及IP段自动整理输出，方便确认资产的范围。
 
 ![WX20200904-164515](./images/WX20200904-164515.png)
 
@@ -102,25 +102,25 @@ ksubdomain加入了整理的功能，当参数后面加上`-summary`。
 ## 管道操作
 借助知名的`subfinder`，`httpx`等工具，可以用管道结合在一起配合工作。达到收集域名，验证域名，http验证存活目的。
 ```bash
-./subfinder -d baidu.com -silent|./ksubdomain -verify -silent|./httpx -title -content-length -status-code
+./subfinder -d baidu.com -silent|./hsubdomain -verify -silent|./httpx -title -content-length -status-code
 ```
 - subfinder 通过各种搜索引擎获取域名
-- ksubdomain 验证域名
+- hsubdomain 验证域名
 - httpx http请求获得数据,验证存活
 ![image-20200902160128305](./images/image-20200902160128305.png)
 
 ## 编译
 因为pcap包的特殊性，无法交叉编译，只能每个系统编译每个文件。
 ```bash
-git clone https://github.com/knownsec/ksubdomain
-cd ksubdomain
+git clone https://github.com/knownsec/hsubdomain
+cd hsubdomain
 go mod download
 cd cmd
-go build ksubdomain.go
+go build hsubdomain.go
 ```
 
 ## Script编写
-Ksubdomain 网络API引擎脚本使用`lua`，文件路径在`resources/scripts`  
+hsubdomain 网络API引擎脚本使用`lua`，文件路径在`resources/scripts`  
 ![WX20200904-164515](./images/WX20210112-175029.png)
 ```lua 
 name = "Sublist3rAPI" -- * 插件名称(必须)
@@ -155,9 +155,9 @@ statik -src=resources
 ```
 ## 常见问题
 - linux下 error while loading shared libraries 报错
-  - https://github.com/knownsec/ksubdomain/issues/1
+  - https://github.com/knownsec/hsubdomain/issues/1
 - Python调用
-  - https://github.com/knownsec/ksubdomain/issues/27
+  - https://github.com/knownsec/hsubdomain/issues/27
 ## 参考
 - 从 Masscan, Zmap 源码分析到开发实践 <https://paper.seebug.org/1052/>
-- ksubdomain 无状态域名爆破工具介绍 <https://paper.seebug.org/1325/>
+- hsubdomain 无状态域名爆破工具介绍 <https://paper.seebug.org/1325/>
